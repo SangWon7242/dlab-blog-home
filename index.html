@@ -27,21 +27,31 @@
   <h1>디랩코딩 안산캠퍼스 블로그 이미지</h1>
   <p class="lead">네이버 블로그 홈페이지형 꾸미기에 쓰는 배너와 위젯 이미지입니다. 아래 주소를 그대로 쓰면 됩니다.</p>
 
-  <h2>배너</h2>
-  <div class="banner"><img src="img/banner.png" alt="배너"></div>
+  <h2>스킨 배경 (1920×790)</h2>
+  <div class="banner"><img src="img/skin-bg.png" alt="스킨 배경"></div>
   <p>이미지 주소: <code id="banner-url"></code></p>
+  <h2>적용 미리보기</h2>
+  <div class="banner"><img src="img/preview.png" alt="미리보기"></div>
 
-  <h2>메뉴 위젯 (위젯직접등록용 코드)</h2>
+  <h2>위젯 7개 (위젯직접등록용 코드, 130×170)</h2>
   <p class="lead">각 코드의 <code>연결할주소</code> 부분을 카테고리·채널 주소로 바꿔서 네이버 위젯직접등록에 붙여 넣으세요.</p>
   <div class="grid" id="widgets"></div>
 </main>
 <script>
   const base = location.href.replace(/index\.html$/, '').replace(/[?#].*$/, '');
-  document.getElementById('banner-url').textContent = base + 'img/banner.png';
-  const W = [['1-academy', '학원 안내'], ['2-semester', '학기 안내'], ['3-news', '학원 소식'], ['4-instagram', '인스타그램'], ['5-kakao', '카카오톡']];
-  document.getElementById('widgets').innerHTML = W.map(([k, name]) => {
-    const code = `<a href="연결할주소" target="_blank"><img src="${base}img/widget-${k}-2x.png" width="170" height="170" border="0" alt="${name}"></a>`;
-    return `<div class="card"><img src="img/widget-${k}-2x.png" alt="${name}"><b>${name}</b>
+  document.getElementById('banner-url').textContent = base + 'img/skin-bg.png';
+  const W = [
+    ['1-home', '블로그 홈 (캐릭터)', 'https://blog.naver.com/dlabansan', '_top'],
+    ['2-consult', '상담 시작하기', '상담주소', '_blank'],
+    ['3-academy', '학원 안내', '연결할주소', '_top'],
+    ['4-semester', '학기 안내', '연결할주소', '_top'],
+    ['5-news', '학원 소식', '연결할주소', '_top'],
+    ['6-instagram', '인스타그램', '인스타그램주소', '_blank'],
+    ['7-kakao', '카카오톡', '카카오톡채널주소', '_blank'],
+  ];
+  document.getElementById('widgets').innerHTML = W.map(([k, name, href, tgt]) => {
+    const code = `<a href="${href}" target="${tgt}"><img src="${base}img/widget-${k}-2x.png" width="130" height="170" border="0" alt="${name}"></a>`;
+    return `<div class="card"><img src="img/widget-${k}-2x.png" alt="${name}" style="width:130px;height:170px"><b>${name}</b>
       <input readonly value='${code.replace(/'/g, '&#39;')}'><button onclick="navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='복사했어요'">코드 복사</button></div>`;
   }).join('');
 </script>
